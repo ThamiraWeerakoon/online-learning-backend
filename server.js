@@ -22,7 +22,7 @@ app.use(cors({
 }));
 
 app.use(cors({
-    origin: 'https://your-frontend.vercel.app',
+    origin: 'online-learning-frontend-cnilgbyb3-thamira-weerakoons-projects.vercel.app',
     credentials: true,
 }));
 
