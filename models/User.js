@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-// Define User schema with username, hashed password, and role (student or instructor)
+// Define User schema with username, hashed password, and role (student or instructor or admin)
 const userSchema = new mongoose.Schema({
     username: { type: String, required: true, unique: true },
     password: { type: String, required: true },

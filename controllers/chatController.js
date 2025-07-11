@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 const { OpenAI } = require('openai');
-const Course = require('../models/Course'); //
+const Course = require('../models/Course');
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 const recommendCourses = async (req, res) => {

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-// Define Course schema with title, description, instructor, and enrolled students
+// Define Course schema with title, description, content, instructor, and enrolled students
 const courseSchema = new mongoose.Schema({
     title: { type: String, required: true },
     description: String,

@@ -10,7 +10,7 @@ const register = async (req, res) => {
     const newUser = new User({
         username,
         password: hashedPassword,
-        role: 'student', // ✅ Always student
+        role: 'student',
     });
 
     await newUser.save();
