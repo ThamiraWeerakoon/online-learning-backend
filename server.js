@@ -22,7 +22,7 @@ const app = express();
 //}));
 
 app.use(cors({
-    origin: 'https://oonline-learning-frontend-20qp2mazj-thamira-weerakoons-projects.vercel.app',
+    origin: 'https://online-learning-frontend-20qp2mazj-thamira-weerakoons-projects.vercel.app',
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
