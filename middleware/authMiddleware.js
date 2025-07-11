@@ -1,13 +1,18 @@
 const jwt = require('jsonwebtoken');
+const User = require('../models/User'); // import User model
 
 // Middleware to verify JWT and extract user info
-const authenticate = (req, res, next) => {
+const authenticate = async (req, res, next) => {
     const token = req.header('Authorization')?.split(' ')[1];
     if (!token) return res.status(401).json({ message: 'Access Denied' });
 
     try {
-        const verified = jwt.verify(token, process.env.JWT_SECRET);
-        req.user = verified;
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const user = await User.findById(decoded.id); // assuming your payload has `id`
+
+        if (!user) return res.status(401).json({ message: 'User not found' });
+
+        req.user = user; // ✅ Now req.user._id will be available and is a valid Mongoose ObjectId
         next();
     } catch (err) {
         res.status(400).json({ message: 'Invalid Token' });
@@ -20,4 +25,19 @@ const isInstructor = (req, res, next) => {
     next();
 };
 
-module.exports = { authenticate, isInstructor };
+const verifyAdmin = (req, res, next) => {
+    const authHeader = req.headers.authorization;
+    if (!authHeader) return res.sendStatus(401);
+
+    const token = authHeader.split(' ')[1];
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    if (decoded.role !== 'admin') {
+        return res.status(403).json({ message: 'Access denied: Admins only' });
+    }
+
+    req.user = decoded;
+    next();
+};
+
+module.exports = { authenticate, isInstructor, verifyAdmin };

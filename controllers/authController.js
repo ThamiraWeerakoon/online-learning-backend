@@ -4,17 +4,18 @@ const User = require('../models/User');
 
 // User Registration
 const register = async (req, res) => {
-    const { username, password, role } = req.body;
-    try {
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const newUser = new User({ username, password: hashedPassword, role });
-        await newUser.save();
-        res.status(201).json({ message: 'User registered successfully' });
-    } catch (err) {
-        res.status(400).json({ message: err.message });
-    }
-};
+    const { username, password } = req.body;
+    const hashedPassword = await bcrypt.hash(password, 10);
 
+    const newUser = new User({
+        username,
+        password: hashedPassword,
+        role: 'student', // ✅ Always student
+    });
+
+    await newUser.save();
+    res.status(201).json({ message: 'Student registered successfully' });
+};
 // User Login
 const login = async (req, res) => {
     const { username, password } = req.body;
@@ -32,4 +33,18 @@ const login = async (req, res) => {
     }
 };
 
-module.exports = { register, login };
+const createInstructor = async (req, res) => {
+    const { username, password } = req.body;
+    const hashed = await bcrypt.hash(password, 10);
+    const user = new User({ username, password: hashed, role: 'instructor' });
+    await user.save();
+    res.status(201).json({ message: 'Instructor created' });
+};
+
+const getAllUsers = async (req, res) => {
+    const users = await User.find({}, 'username role');
+    res.json(users);
+};
+
+
+module.exports = { register, login, getAllUsers, createInstructor };
