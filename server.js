@@ -21,6 +21,12 @@ app.use(cors({
     allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
+app.use(cors({
+    origin: 'https://your-frontend.vercel.app',
+    credentials: true,
+}));
+
+
 // Parse incoming JSON
 app.use(express.json());
 
