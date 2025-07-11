@@ -14,16 +14,18 @@ dotenv.config();
 const app = express();
 
 // CORS config
-app.use(cors({
-    origin: 'http://localhost:3000', // or your deployed frontend URL
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-}));
+//app.use(cors({
+//    origin: 'http://localhost:3000', // or your deployed frontend URL
+//    credentials: true,
+//    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+//    allowedHeaders: ['Content-Type', 'Authorization'],
+//}));
 
 app.use(cors({
     origin: 'online-learning-frontend-cnilgbyb3-thamira-weerakoons-projects.vercel.app',
     credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
 
